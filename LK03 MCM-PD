@@ -1,3 +1,5 @@
+//KELOMPOK 06
+
 def matrix_product(p):
  
     length = len(p) # len(p) = number of matrices + 1
