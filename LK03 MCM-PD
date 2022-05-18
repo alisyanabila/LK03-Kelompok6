@@ -1,17 +1,18 @@
-//KELOMPOK 06
+#Kelompok 6
+#Desain dan Analisis Algoritma_B
 
-def matrix_product(p):
+def matrixProduct(p):
  
-    length = len(p) # len(p) = number of matrices + 1
+    panjang = len(p) 
  
-    m = [[-1]*length for _ in range(length)]
-    s = [[-1]*length for _ in range(length)]
+    m = [[-1]*panjang for _ in range(panjang)]
+    s = [[-1]*panjang for _ in range(panjang)]
  
-    for i in range(1, length):
+    for i in range(1, panjang):
         m[i][i] = 0
  
-    for chain_length in range(2, length):
-        for start in range(1, length - chain_length + 1):
+    for chain_length in range(2, panjang):
+        for start in range(1, panjang - chain_length + 1):
             end = start + chain_length - 1
             q = float('inf')
             for k in range(start, end):
@@ -24,7 +25,7 @@ def matrix_product(p):
     return m, s
  
  
-def print_parenthesization(s, start, end):
+def cetakPengkurungan(s, start, end):
 
     if start == end:
         print('A[{}]'.format(start), end='')
@@ -33,22 +34,21 @@ def print_parenthesization(s, start, end):
     k = s[start][end]
  
     print('(', end='')
-    print_parenthesization(s, start, k)
-    print_parenthesization(s, k + 1, end)
+    cetakPengkurungan(s, start, k)
+    cetakPengkurungan(s, k + 1, end)
     print(')', end='')
  
- 
-n = int(input('Masukkan banyak matriks: '))
+inp = int(input('Masukkan jumlah matriks: '))
 p = []
-for i in range(n):
+for i in range(inp):
     temp = int(input('Masukkan nilai pada baris ke-{} matriks: '.format(i + 1)))
     p.append(temp)
-temp = int(input('Masukkan nilai pada kolom ke-{} matriks: '.format(n)))
+temp = int(input('Masukkan nilai pada kolom ke-{} matriks: '.format(inp)))
 p.append(temp)
  
-m, s = matrix_product(p)
-print('Banyaknya perkalian skalar yang dibutuhkan:', m[1][n])
+m, s = matrixProduct(p)
+print('Banyaknya perkalian skalar yang dibutuhkan:', m[1][inp])
 print('Hasil Pengkurungan Optimal: ', end='')
-print_parenthesization(s, 1, n)
+cetakPengkurungan(s, 1, inp)
 print("\nMatriks M: ", m)
 print("Matriks S: ", s)
