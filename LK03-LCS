@@ -1,0 +1,45 @@
+#Kelompok 6
+#Desain dan Analisis Algoritma
+
+def lcs(X, Y, m, n):
+	L = [[0 for i in range(n+1)] for j in range(m+1)]
+
+	for i in range(m+1):
+		for j in range(n+1):
+			if i == 0 or j == 0:
+				L[i][j] = 0
+			elif X[i-1] == Y[j-1]:
+				L[i][j] = L[i-1][j-1] + 1
+			else:
+				L[i][j] = max(L[i-1][j], L[i][j-1])
+
+		#variabel string untuk menyimpan string lcs
+	lcs = ""
+
+	#mulai dari pojok kanan bawah dan satu per satu menyimpan karakter ke dalam lcs[]
+	i = m
+	j = n
+	while i > 0 and j > 0:
+
+		#Jika karakter saat ini X[] dan Y sama, maka karakter saat ini adalah 
+    #bagian dari LCS
+		if X[i-1] == Y[j-1]:
+			lcs += X[i-1]
+			i -= 1
+			j -= 1
+
+		#Jika tidak sama, maka mencari yang lebih besar dari keduanya menuju arah 
+    #nilai yang lebih besar
+		elif L[i-1][j] > L[i][j-1]:
+			i -= 1
+		else:
+			j -= 1
+
+	lcs = lcs[::-1]
+	print("LCS dari " + X + " dan " + Y + " yakni " + lcs)
+
+X = input("Masukkan string X: ")
+Y = input("Masukkan string Y: ")
+m = len(X)
+n = len(Y)
+lcs(X, Y, m, n)
